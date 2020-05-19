@@ -9,18 +9,6 @@ export default function Home() {
 
       <hr />
 
-      <Post title="My second blog post">
-        <P>Hello there</P>
-        <P>This is another example.</P>
-        <P>Wa-hoo!</P>
-      </Post>
-
-      <hr />
-
-      <Post title="The final blog post">
-        <P>C’est fin</P>
-      </Post>
-
       <style jsx>{`
       .main {
         margin: auto;
