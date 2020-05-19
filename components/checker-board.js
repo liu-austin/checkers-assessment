@@ -1,7 +1,7 @@
 import Cell from './cell';
 import {useState, useEffect} from 'react';
 
-export default function CheckerBoard({ size }) {
+export default function CheckerBoard({ size, colorset, shapeset }) {
     let resize = size;
     let rows = new Array(resize).fill(0);
     let pieceRowsPerSide = Math.floor(Math.min(2, resize / 2));
@@ -46,7 +46,7 @@ export default function CheckerBoard({ size }) {
                                 size ? 
                                     (
                                         rows.map((cell, j) => {return (
-                                            <Cell key={j} filled={positions[i] ? positions[i][j] : 0} color={i % 2 + j % 2}/>
+                                            <Cell colorset={colorset} shapeset={shapeset} key={j} filled={positions[i] ? positions[i][j] : 0} color={i % 2 + j % 2}/>
                                         );
                                     })
                                     ) 

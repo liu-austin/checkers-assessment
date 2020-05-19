@@ -1,12 +1,12 @@
 import GamePiece from './game-piece';
 
-export default function Cell({ color, filled }) {
+export default function Cell({ color, filled, colorset, shapeset }) {
     return (
       <td className={color % 2 ? 'white' : 'black'}>
       {
           filled ? 
           (
-            <GamePiece color={filled}/>
+            <GamePiece colorset={colorset} shape={shapeset} color={filled}/>
           ) 
           : 
           (
