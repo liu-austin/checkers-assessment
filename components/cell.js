@@ -1,6 +1,18 @@
-export default function Cell({ color }) {
+import GamePiece from './game-piece';
+
+export default function Cell({ color, filled }) {
     return (
       <td className={color % 2 ? 'white' : 'black'}>
+      {
+          filled ? 
+          (
+            <GamePiece color={filled}/>
+          ) 
+          : 
+          (
+              null
+          )
+      }
         <style jsx>{`
         td {
             z-index: 0;
@@ -10,13 +22,13 @@ export default function Cell({ color }) {
         }
 
         .white {
-            border: 1px solid black;
+            border: 1px solid gray;
             background-color: white;
         }
 
         .black {
-            border: 1px solid black;
-            background-color: black;
+            border: 1px solid gray;
+            background-color: gray;
         }
         `}</style>
       </td>

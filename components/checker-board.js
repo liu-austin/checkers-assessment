@@ -1,8 +1,37 @@
 import Cell from './cell';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 export default function CheckerBoard({ size }) {
-    let rows = new Array(size).fill(0);
+    let resize = size;
+    let rows = new Array(resize).fill(0);
+    let pieceRowsPerSide = Math.floor(Math.min(2, resize / 2));
+
+    let initialPosition = [];
+
+    for (let i = 0; i < resize; i++) {
+        if (i < pieceRowsPerSide) {
+            initialPosition.push(new Array(resize).fill(2));
+        } else if (i >= size - pieceRowsPerSide) {
+            initialPosition.push(new Array(resize).fill(1));
+        } else {
+            initialPosition.push(new Array(resize).fill(0));
+        }
+    }
+
+    const [positions, changePositions] = useState(initialPosition);
+    useEffect(() => {
+        let initialPosition = [];
+        for (let i = 0; i < resize; i++) {
+            if (i < pieceRowsPerSide) {
+                initialPosition.push(new Array(resize).fill(2));
+            } else if (i >= size - pieceRowsPerSide) {
+                initialPosition.push(new Array(resize).fill(1));
+            } else {
+                initialPosition.push(new Array(resize).fill(0));
+            }
+        }
+        changePositions(initialPosition);
+    }, [size]);
     return (
       <>
         <table className="checker-board">
@@ -17,7 +46,7 @@ export default function CheckerBoard({ size }) {
                                 size ? 
                                     (
                                         rows.map((cell, j) => {return (
-                                            <Cell key={j} color={i % 2 + j % 2}/>
+                                            <Cell key={j} filled={positions[i] ? positions[i][j] : 0} color={i % 2 + j % 2}/>
                                         );
                                     })
                                     ) 
