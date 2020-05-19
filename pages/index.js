@@ -1,5 +1,3 @@
-import P from '../components/paragraph'
-import Post from '../components/post'
 import GameContainer from '../components/game-container';
 
 export default function Home() {
