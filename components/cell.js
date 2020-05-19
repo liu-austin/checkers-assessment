@@ -1,10 +1,10 @@
 import GamePiece from './game-piece';
 
-export default function Cell({ color, filled, colorset, shapeset, memoizedHandleClick, col, row, selectedPiece }) {
+export default function Cell({ validMove, positions, color, filled, colorset, shapeset, memoizedHandleClick, col, row, selectedPiece }) {
     return (
       <td onClick={() => {
-        memoizedHandleClick(row, col);
-    }} className={color % 2 ? 'white' : 'black'}>
+        memoizedHandleClick(row, col, filled);
+    }} className={validMove ? 'valid' : color % 2 ? 'white' : 'black'}>
       {
           selectedPiece
       }
@@ -23,6 +23,11 @@ export default function Cell({ color, filled, colorset, shapeset, memoizedHandle
             height: 100px;
             width: 100px;
             padding: 0px;
+        }
+
+        .valid {
+            background-color: #5fdde5;
+            border: 1px solid #5fdde5;
         }
 
         .white {
