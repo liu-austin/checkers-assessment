@@ -1,12 +1,17 @@
 import GamePiece from './game-piece';
 
-export default function Cell({ color, filled, colorset, shapeset }) {
+export default function Cell({ color, filled, colorset, shapeset, memoizedHandleClick, col, row, selectedPiece }) {
     return (
-      <td className={color % 2 ? 'white' : 'black'}>
+      <td onClick={() => {
+        memoizedHandleClick(row, col);
+    }} className={color % 2 ? 'white' : 'black'}>
+      {
+          selectedPiece
+      }
       {
           filled ? 
           (
-            <GamePiece colorset={colorset} shape={shapeset} color={filled}/>
+            <GamePiece selectedPiece={selectedPiece} colorset={colorset} shape={shapeset} color={filled}/>
           ) 
           : 
           (
@@ -15,15 +20,14 @@ export default function Cell({ color, filled, colorset, shapeset }) {
       }
         <style jsx>{`
         td {
-            z-index: 0;
             height: 100px;
             width: 100px;
             padding: 0px;
         }
 
         .white {
-            border: 1px solid gray;
-            background-color: white;
+            border: 1px solid lightgray;
+            background-color: lightgray;
         }
 
         .black {

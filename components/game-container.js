@@ -42,7 +42,7 @@ export default function GameContainer() {
       </div>
       <div className={"radio-option"}>
         <input onClick={handleColorClick} type="radio" id="yellow-green" name="piece-color" value="2" />
-        <label htmlFor="yellow-green">Yellow / Green</label>
+        <label htmlFor="yellow-green">Purple / Green</label>
       </div>
       </form>
       </div>

@@ -1,4 +1,4 @@
-export default function GamePiece({ color, colorset, shape }) {
+export default function GamePiece({ color, colorset, shape, selectedPiece }) {
     let color1;
     let color2;
     if (colorset === 0) {
@@ -8,17 +8,20 @@ export default function GamePiece({ color, colorset, shape }) {
       color1 = "blue-piece";
       color2 = "orange-piece";
     } else {
-      color1 = "yellow-piece";
+      color1 = "purple-piece";
       color2 = "green-piece";
     }
+    let selected = selectedPiece ? 'highlighted' : '';
     let pieceColor = color === 2 ? color1 : color2;
     let pieceShape = shape === 1 ? "square" : "circular";
     return (
-      <div className={pieceColor + " game-piece " + pieceShape}>
+      <div className={pieceColor + " game-piece " + pieceShape + " " + selected}>
         <style jsx>{`
            {
+            .highlighted {
+                border: 3px solid rgba(250, 235, 39, 1);
+            }
             .game-piece {
-              z-index: 1;
               width: 75px;
               height: 75px;
               margin: 0 auto;
@@ -37,8 +40,8 @@ export default function GamePiece({ color, colorset, shape }) {
             .orange-piece {
               background-color: orange;
             }
-            .yellow-piece {
-              background-color: yellow;
+            .purple-piece {
+              background-color: purple;
             }
   
             .green-piece {
