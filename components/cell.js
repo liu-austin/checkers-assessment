@@ -1,9 +1,13 @@
 import GamePiece from './game-piece';
 
-export default function Cell({ validMove, positions, color, filled, colorset, shapeset, memoizedHandleClick, col, row, selectedPiece }) {
+export default function Cell({ movePiece, validMove, positions, color, filled, colorset, shapeset, memoizedHandleClick, col, row, selectedPiece }) {
     return (
       <td onClick={() => {
-        memoizedHandleClick(row, col, filled);
+          if (validMove) {
+            movePiece(row, col)
+          } else {
+            memoizedHandleClick(row, col, filled);
+          }
     }} className={validMove ? 'valid' : color % 2 ? 'white' : 'black'}>
       {
           selectedPiece
