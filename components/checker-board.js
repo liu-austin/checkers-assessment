@@ -30,9 +30,11 @@ export default function CheckerBoard({ size, colorset, shapeset }) {
     const [selectedSide, changeSelectedSide] = useState(null);
 
     const movePiece = useCallback((moveToRow, moveToCol) => {
-            if (Number(previousSelectedRow) !== Number(selectedRow) || Number(previousSelectedCol) !== Number(selectedCol)) {
-                changePreviousSelectedRow(selectedRow);
-                changePreviousSelectedCol(selectedCol);
+            if (Number(previousSelectedRow) === Number(selectedRow) && Number(previousSelectedCol) === Number(selectedCol)) {
+                alert('Same piece cannot make consecutive moves.');
+            } else {
+                changePreviousSelectedRow(moveToRow);
+                changePreviousSelectedCol(moveToCol);
                 let currentPosition = positions;
                 currentPosition[moveToRow][moveToCol] = selectedSide;
                 currentPosition[selectedRow][selectedCol] = 0;
