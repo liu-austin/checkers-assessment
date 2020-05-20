@@ -6,7 +6,7 @@ export default function Cell({ movePiece, validMove, positions, color, filled, c
           if (validMove) {
             movePiece(row, col)
           } else {
-            memoizedHandleClick(row, col, filled);
+            memoizedHandleClick(row, col, filled, positions);
           }
     }} className={validMove ? 'valid' : color % 2 ? 'white' : 'black'}>
       {

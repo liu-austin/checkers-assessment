@@ -41,6 +41,7 @@ export default function CheckerBoard({ size, colorset, shapeset }) {
                 changePositions(currentPosition);
                 // changeSelectedRow(null);
                 // changeSelectedCol(null);
+                console.log(positions)
                 changeValidMoveRow1(null);
                 changeValidMoveRow2(null);
                 changeValidMoveCol1(null);
@@ -60,19 +61,21 @@ export default function CheckerBoard({ size, colorset, shapeset }) {
 
     // find cells that can be moved into
     const memoizedHandleClick = useCallback(
-        (clickedRow, clickedCol, side) => {
+        (clickedRow, clickedCol, side, currentGrid) => {
           changeSelectedRow(Number(clickedRow));
           changeSelectedCol(Number(clickedCol));
           changeSelectedSide(Number(side));
             if (Number(side) === 2) {
-                if (Number(clickedRow) + 1 < size && Number(clickedCol) - 1 >= 0 && !positions[Number(clickedRow) + 1][Number(clickedCol) - 1]) {
+                console.log(Number(clickedRow) + 1 < size && Number(clickedCol) - 1 >= 0 && !currentGrid[Number(clickedRow) + 1][Number(clickedCol) - 1])
+                if (Number(clickedRow) + 1 < size && Number(clickedCol) - 1 >= 0 && !currentGrid[Number(clickedRow) + 1][Number(clickedCol) - 1]) {
                     changeValidMoveRow1(Number(clickedRow) + 1);
                     changeValidMoveCol1(Number(clickedCol) - 1);
                 } else {
                     changeValidMoveRow1(null);
                     changeValidMoveCol1(null);
                 }
-                if (Number(clickedRow) + 1 < size && Number(clickedCol) + 1 < size && Number(clickedRow) + 1 < size && !positions[Number(clickedRow) + 1][Number(clickedCol) + 1]) {
+                console.log(Number(clickedRow) + 1 < size && Number(clickedCol) + 1 < size && Number(clickedRow) + 1 < size && !currentGrid[Number(clickedRow) + 1][Number(clickedCol) + 1])
+                if (Number(clickedRow) + 1 < size && Number(clickedCol) + 1 < size && Number(clickedRow) + 1 < size && !currentGrid[Number(clickedRow) + 1][Number(clickedCol) + 1]) {
                     changeValidMoveRow2(Number(clickedRow) + 1);
                     changeValidMoveCol2(Number(clickedCol) + 1);
                 } else {
@@ -80,14 +83,16 @@ export default function CheckerBoard({ size, colorset, shapeset }) {
                     changeValidMoveCol2(null);
                 }
             } else if (Number(side) === 1) {
-                if (Number(clickedRow) - 1 >= 0 && Number(clickedCol) + 1 < size && !positions[Number(clickedRow) - 1][Number(clickedCol) + 1]) {
+                console.log(Number(clickedRow) - 1 >= 0 && Number(clickedCol) + 1 < size && !currentGrid[Number(clickedRow) - 1][Number(clickedCol) + 1])
+                if (Number(clickedRow) - 1 >= 0 && Number(clickedCol) + 1 < size && !currentGrid[Number(clickedRow) - 1][Number(clickedCol) + 1]) {
                     changeValidMoveRow1(Number(clickedRow) - 1);
                     changeValidMoveCol1(Number(clickedCol) + 1);
                 } else {
                     changeValidMoveRow1(null);
                     changeValidMoveCol1(null);
                 }
-                if (Number(clickedRow) - 1 >= 0 && Number(clickedCol) - 1 < size && Number(clickedRow) + 1 < size && !positions[Number(clickedRow) - 1][Number(clickedCol) + 1]) {
+                console.log(Number(clickedRow) - 1 >= 0 && Number(clickedCol) - 1 >= 0 && Number(clickedRow) + 1 < size && !currentGrid[Number(clickedRow) - 1][Number(clickedCol) + 1])
+                if (Number(clickedRow) - 1 >= 0 && Number(clickedCol) - 1 >= 0 && Number(clickedRow) + 1 < size && !currentGrid[Number(clickedRow) - 1][Number(clickedCol) - 1]) {
                     changeValidMoveRow2(Number(clickedRow) - 1);
                     changeValidMoveCol2(Number(clickedCol) - 1);
                 } else {
