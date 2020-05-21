@@ -1,70 +1,49 @@
 // jshint esversion:6
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/fetcher");
+mongoose.connect("mongodb://localhost:27017/checkers-assessment", { useUnifiedTopology: true, useNewUrlParser: true });
 
 let Schema = mongoose.Schema;
 
-let saveSchema = new Schema({
-  saved: Boolean
-});
-
-let Saved = mongoose.model("Saved", saveSchema);
-
-let createSave = cb => {
-  Saved.create({ saved: false }, (err, res) => {
-    if (err) {
-      console.log("failed to create save");
-      cb(err);
-    } else {
-      console.log("save created");
-      cb(null, res);
-    }
-  });
-};
-
-let fetchSave = cb => {
-  Saved.find({}, (err, results) => {
-    if (err) {
-      console.log("failed to fetch save");
-      cb(err);
-    } else {
-      console.log("save fetched");
-      cb(null, results);
-    }
-  });
-};
-
-let setSave = (info, cb) => {
-  Saved.updateMany({}, { saved: info.isSaved }, (err, results) => {
-      if (err) {
-        console.log("failed to update saves");
-        cb(err);
-      } else {
-        console.log("save status updated");
-        cb(null, results);
-      }
-    });
-};
-
-let deleteSave = (cb) => {
-  Saved.deleteMany({}, (err) => {
-    if (err) {
-      console.log("failed to delete saves");
-      cb(err);
-    } else {
-      console.log("save deleted");
-      cb(null);
-    }
-  });
-};
-
-let columnSchema = new Schema({
-  column: [Number]
-});
-
 let boardSchema = new Schema({
-  board: [columnSchema]
+    boardInfo: [[Number]]
 });
+
+let sizeSchema = new Schema({
+    size: Number
+});
+
+let Size = mongoose.model("Size", sizeSchema);
+
+let fetchSize = cb => {
+    Size.find({}, (err, result) => {
+        if (err) {
+            cb(err);
+        } else {
+            cb(null, result);
+        }
+    });
+}
+
+let createSize = (info, cb) => {
+    Size.create({size: info.size}, (err, response) => {
+        if (err) {
+            cb(err);
+          } else {
+            console.log("size created");
+            cb(null, response);
+          }
+    });
+}
+
+let deleteSize = (cb) => {
+    Size.deleteMany({}, (err) => {
+        if (err) {
+            cb(err);
+        } else {
+            cb(null);
+        }
+    });
+}
 
 let Board = mongoose.model("Board", boardSchema);
 
@@ -79,7 +58,7 @@ let fetchBoard = cb => {
 };
 
 let createBoard = (info, cb) => {
-  Board.create({ board: info.boardInfo }, (err, res) => {
+  Board.create({ boardInfo: info.boardInfo }, (err, res) => {
     if (err) {
       cb(err);
     } else {
@@ -119,7 +98,6 @@ module.exports.deleteBoard = deleteBoard;
 module.exports.setBoard = setBoard;
 module.exports.createBoard = createBoard;
 module.exports.fetchBoard = fetchBoard;
-module.exports.setSave = setSave;
-module.exports.fetchSave = fetchSave;
-module.exports.deleteSave = deleteSave;
-module.exports.createSave = createSave;
+module.exports.deleteSize = deleteSize;
+module.exports.fetchSize = fetchSize;
+module.exports.createSize = createSize;

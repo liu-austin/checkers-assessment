@@ -1,6 +1,7 @@
 // jshint esversion:6
 import { useState, useEffect } from "react";
 import CheckerBoard from "./checker-board";
+import axios from 'axios';
 
 export default function GameContainer() {
   const [number, changeNumber] = useState(8);
@@ -12,6 +13,21 @@ export default function GameContainer() {
   const handleShapeClick = function(e) {
     changeShapeSet(e.target.value);
   };
+
+//   const retrieveSize= function() {
+//     axios.get(`http://localhost:1128/size`, {}).then(results => {
+//         console.log(results.data)
+//         if (results.data[0]) {
+//             console.log('working')
+//           changeNumber(results.data[0].size);
+//         } 
+//         axios.delete(`http://localhost:1128/size`, {}).then(() => console.log('delete after refresh')).catch(err1 => console.log(err1));
+//       }).catch(err => console.log(err));
+// }
+
+//     useEffect(() => {
+//         retrieveSize();
+//     }, []);
   return (
     <div className="game-container">
       <label htmlFor="input_number">
@@ -22,6 +38,9 @@ export default function GameContainer() {
         type="number"
         value={number}
         onChange={e => {
+            axios.delete(`http://localhost:1128/board`, {}).then(() => {
+                axios.delete(`http://localhost:1128/size`, {}).then(() => console.log('deleted previous board')).catch(err => console.log(err));
+            }).catch(err => console.log(err));
           changeNumber(e.target.value);
         }}
       />
