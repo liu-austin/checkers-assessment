@@ -2,7 +2,7 @@ import Cell from "./cell";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-export default function CheckerBoard({ size, colorset, shapeset }) {
+export default function CheckerBoard({  size, colorset, shapeset }) {
   let resize = size;
   let rows = new Array(resize).fill(0);
   let pieceRowsPerSide = Math.floor(Math.min(2, resize / 2));
@@ -167,6 +167,7 @@ export default function CheckerBoard({ size, colorset, shapeset }) {
       .then(results => {
         if (results.data[0]) {
           changePositions(results.data[0].boardInfo);
+          // affectSize(results.data[0].length);
         }
         axios
           .delete(`http://localhost:1128/board`, {})

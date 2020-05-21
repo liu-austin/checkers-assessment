@@ -1,5 +1,5 @@
 // jshint esversion:6
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import CheckerBoard from "./checker-board";
 import axios from 'axios';
 
@@ -13,6 +13,11 @@ export default function GameContainer() {
   const handleShapeClick = function(e) {
     changeShapeSet(e.target.value);
   };
+
+  // const affectSize = useCallback((n) => {
+  //   console.log('changed size')
+  //   changeNumber(n);
+  // }, [])
 
 //   const retrieveSize= function() {
 //     axios.get(`http://localhost:1128/size`, {}).then(results => {
